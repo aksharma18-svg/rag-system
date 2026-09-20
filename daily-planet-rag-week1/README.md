@@ -1,4 +1,4 @@
-# Module 2 · Week 1 — Document Ingestion & Chunking
+# Module 2 · Week 1 and Week2 Lab Exercises to gether— Document Ingestion & Chunking
 
 The first stage of "The Daily Planet AI Desk" RAG pipeline: load the newsroom
 archive, extract clean text + metadata, and split it into embedding-ready chunks.
