@@ -1,15 +1,15 @@
 """
-Daily Planet AI Desk API, a FastAPI application.
+Daily Planet AI Desk API — FastAPI application.
 Routing layer only: receives requests, delegates to services, returns responses.
-Same shape as the Module 0 service - semantic search is a new capability, not a new app.
+Same shape as the Module 0 service - each new route is a new capability, not a new app.
 """
 from fastapi import FastAPI
-from .models import SearchRequest, SearchResponse
-from .services import search
+from .models import SearchRequest, SearchResponse, AskRequest, AskResponse
+from .services import search, ask
 
 app = FastAPI(
     title="Daily Planet AI Desk",
-    description="Semantic search over the newsroom archive - finds by meaning, not just spelling",
+    description="A RAG service that answers questions from the newsroom archive - grounded, cited, or honest",
     version="1.0.0",
 )
 
@@ -23,3 +23,9 @@ def health_check():
 def search_endpoint(req: SearchRequest):
     results = search(req.query, req.k)
     return SearchResponse(results=results)
+
+
+@app.post("/ask", response_model=AskResponse)
+def ask_question(req: AskRequest):
+    result = ask(req.question)
+    return AskResponse(**result)
